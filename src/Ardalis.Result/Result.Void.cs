@@ -37,29 +37,29 @@ namespace Ardalis.Result
         /// <returns>A Result<typeparamref name="T"/></returns>
         public static Result<T> Success<T>(T value, string successMessage) => new(value, successMessage);
 
-		/// <summary>
-		/// Represents a successful operation that resulted in the creation of a new resource.
-		/// Accepts a value as the result of the operation.
-		/// </summary>		
-		/// <param name="value">Sets the Value property</param>
-		/// <returns>A Result<typeparamref name="T"/></returns>
-		public static Result<T> Created<T>(T value)
-		{
-			return Result<T>.Created(value);
-		}
+        /// <summary>
+        /// Represents a successful operation that resulted in the creation of a new resource.
+        /// Accepts a value as the result of the operation.
+        /// </summary>		
+        /// <param name="value">Sets the Value property</param>
+        /// <returns>A Result<typeparamref name="T"/></returns>
+        public static Result<T> Created<T>(T value)
+        {
+            return Result<T>.Created(value);
+        }
 
-		/// <summary>
-		/// Represents a successful operation that resulted in the creation of a new resource.
-		/// Accepts a value as the result of the operation.
-		/// Accepts a location for the new resource.
-		/// </summary>		
-		/// <param name="value">Sets the Value property</param>
-		/// <param name="location">The location of the newly created resource</param>
-		/// <returns>A Result<typeparamref name="T"/></returns>
-		public static Result<T> Created<T>(T value, string location)
-		{
-			return Result<T>.Created(value, location);
-		}
+        /// <summary>
+        /// Represents a successful operation that resulted in the creation of a new resource.
+        /// Accepts a value as the result of the operation.
+        /// Accepts a location for the new resource.
+        /// </summary>		
+        /// <param name="value">Sets the Value property</param>
+        /// <param name="location">The location of the newly created resource</param>
+        /// <returns>A Result<typeparamref name="T"/></returns>
+        public static Result<T> Created<T>(T value, string location)
+        {
+            return Result<T>.Created(value, location);
+        }
 
         /// <summary>
         /// Represents an error that occurred during the execution of the service.
@@ -102,7 +102,7 @@ namespace Ardalis.Result
         /// </summary>
         /// <param name="validationErrors">A list of validation errors encountered</param>
         /// <returns>A Result</returns>
-        public new static Result Invalid(IEnumerable<ValidationError> validationErrors)
+        public new static Result Invalid(params IEnumerable<ValidationError> validationErrors)
             => new(ResultStatus.Invalid) { ValidationErrors = validationErrors };
 
         /// <summary>
@@ -119,6 +119,9 @@ namespace Ardalis.Result
         /// <returns>A Result</returns>
         public new static Result NotFound(params string[] errorMessages) => new(ResultStatus.NotFound) { Errors = errorMessages };
 
+        /// <inheritdoc cref="NotFound(string[])" />
+        public new static Result NotFound(params IEnumerable<string> errorMessages) => new(ResultStatus.NotFound) { Errors = errorMessages };
+
         /// <summary>
         /// The parameters to the call were correct, but the user does not have permission to perform some action.
         /// See also HTTP 403 Forbidden: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#4xx_client_errors
@@ -134,6 +137,9 @@ namespace Ardalis.Result
         /// <returns>A Result</returns>
         public new static Result Forbidden(params string[] errorMessages) => new(ResultStatus.Forbidden) { Errors = errorMessages };
 
+        /// <inheritdoc cref="Forbidden(string[])" />
+        public new static Result Forbidden(params IEnumerable<string> errorMessages) => new(ResultStatus.Forbidden) { Errors = errorMessages };
+
         /// <summary>
         /// This is similar to Forbidden, but should be used when the user has not authenticated or has attempted to authenticate but failed.
         /// See also HTTP 401 Unauthorized: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#4xx_client_errors
@@ -148,6 +154,9 @@ namespace Ardalis.Result
         /// <param name="errorMessages">A list of string error messages.</param>  
         /// <returns>A Result</returns>
         public new static Result Unauthorized(params string[] errorMessages) => new(ResultStatus.Unauthorized) { Errors = errorMessages };
+
+        /// <inheritdoc cref="Unauthorized(string[])" />
+        public new static Result Unauthorized(params IEnumerable<string> errorMessages) => new(ResultStatus.Unauthorized) { Errors = errorMessages };
 
         /// <summary>
         /// Represents a situation where a service is in conflict due to the current state of a resource,
@@ -167,6 +176,9 @@ namespace Ardalis.Result
         /// <returns>A Result</returns>
         public new static Result Conflict(params string[] errorMessages) => new(ResultStatus.Conflict) { Errors = errorMessages };
 
+        /// <inheritdoc cref="Conflict(string[])" />
+        public new static Result Conflict(params IEnumerable<string> errorMessages) => new(ResultStatus.Conflict) { Errors = errorMessages };
+
         /// <summary>
         /// Represents a situation where a service is unavailable, such as when the underlying data store is unavailable.
         /// Errors may be transient, so the caller may wish to retry the operation.
@@ -176,6 +188,9 @@ namespace Ardalis.Result
         /// <returns></returns>
         public new static Result Unavailable(params string[] errorMessages) => new(ResultStatus.Unavailable) { Errors = errorMessages };
 
+        /// <inheritdoc cref="Unavailable(string[])" />
+        public new static Result Unavailable(params IEnumerable<string> errorMessages) => new(ResultStatus.Unavailable) { Errors = errorMessages };
+
         /// <summary>
         /// Represents a critical error that occurred during the execution of the service.
         /// Everything provided by the user was valid, but the service was unable to complete due to an exception.
@@ -184,6 +199,9 @@ namespace Ardalis.Result
         /// <param name="errorMessages">A list of string error messages.</param>
         /// <returns>A Result</returns>
         public new static Result CriticalError(params string[] errorMessages) => new(ResultStatus.CriticalError) { Errors = errorMessages };
+
+        /// <inheritdoc cref="CriticalError(string[])" />
+        public new static Result CriticalError(params IEnumerable<string> errorMessages) => new(ResultStatus.CriticalError) { Errors = errorMessages };
 
         /// <summary>
         /// Represents a situation where the server has successfully fulfilled the request, but there is no content to send back in the response body.

@@ -148,7 +148,7 @@ namespace Ardalis.Result
         /// </summary>
         /// <param name="validationErrors">A list of validation errors encountered</param>
         /// <returns>A Result<typeparamref name="T"/></returns>
-        public static Result<T> Invalid(IEnumerable<ValidationError> validationErrors)
+        public static Result<T> Invalid(params IEnumerable<ValidationError> validationErrors)
             => new(ResultStatus.Invalid) { ValidationErrors = validationErrors };
 
         /// <summary>
@@ -180,6 +180,9 @@ namespace Ardalis.Result
         /// <returns>A Result<typeparamref name="T"/></returns>
         public static Result<T> Forbidden(params string[] errorMessages) => new(ResultStatus.Forbidden) { Errors = errorMessages };
 
+        /// <inheritdoc cref="Forbidden(string[])" />
+        public static Result<T> Forbidden(params IEnumerable<string> errorMessages) => new(ResultStatus.Forbidden) { Errors = errorMessages };
+
         /// <summary>
         /// This is similar to Forbidden, but should be used when the user has not authenticated or has attempted to authenticate but failed.
         /// See also HTTP 401 Unauthorized: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#4xx_client_errors
@@ -194,6 +197,9 @@ namespace Ardalis.Result
         /// <param name="errorMessages">A list of string error messages.</param>  
         /// <returns>A Result<typeparamref name="T"/></returns>
         public static Result<T> Unauthorized(params string[] errorMessages) => new(ResultStatus.Unauthorized) { Errors = errorMessages };
+
+        /// <inheritdoc cref="Unauthorized(string[])" />
+        public static Result<T> Unauthorized(params IEnumerable<string> errorMessages) => new(ResultStatus.Unauthorized) { Errors = errorMessages };
 
         /// <summary>
         /// Represents a situation where a service is in conflict due to the current state of a resource,
@@ -213,6 +219,9 @@ namespace Ardalis.Result
         /// <returns>A Result<typeparamref name="T"/></returns>
         public static Result<T> Conflict(params string[] errorMessages) => new(ResultStatus.Conflict) { Errors = errorMessages };
 
+        /// <inheritdoc cref="Conflict(string[])" />
+        public static Result<T> Conflict(params IEnumerable<string> errorMessages) => new(ResultStatus.Conflict) { Errors = errorMessages };
+
         /// <summary>
         /// Represents a critical error that occurred during the execution of the service.
         /// Everything provided by the user was valid, but the service was unable to complete due to an exception.
@@ -222,6 +231,9 @@ namespace Ardalis.Result
         /// <returns>A Result<typeparamref name="T"/></returns>
         public static Result<T> CriticalError(params string[] errorMessages) => new(ResultStatus.CriticalError) { Errors = errorMessages };
 
+        /// <inheritdoc cref="CriticalError(string[])" />
+        public static Result<T> CriticalError(params IEnumerable<string> errorMessages) => new(ResultStatus.CriticalError) { Errors = errorMessages };
+
         /// <summary>
         /// Represents a situation where a service is unavailable, such as when the underlying data store is unavailable.
         /// Errors may be transient, so the caller may wish to retry the operation.
@@ -230,6 +242,9 @@ namespace Ardalis.Result
         /// <param name="errorMessages">A list of string error messages</param>
         /// <returns></returns>
         public static Result<T> Unavailable(params string[] errorMessages) => new(ResultStatus.Unavailable) { Errors = errorMessages };
+
+        /// <inheritdoc cref="Unavailable(string[])" />
+        public static Result<T> Unavailable(params IEnumerable<string> errorMessages) => new(ResultStatus.Unavailable) { Errors = errorMessages };
 
         /// <summary>
         /// Represents a situation where the server has successfully fulfilled the request, but there is no content to send back in the response body.
