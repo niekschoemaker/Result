@@ -6,8 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net9.0'))"  VersionOverride="9.0.4"/>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Condition=" '$(TargetFramework)' != 'net6.0' "/>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Condition=" '$(TargetFramework)' == 'net6.0' " VersionOverride="6.0.23"/>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Condition=" '$(TargetFramework)' == 'net6.0' " VersionOverride="6.0.36"/>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Microsoft.TestPlatform.ObjectModel" />
     <PackageReference Include="xunit" />
@@ -20,6 +21,25 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
+  <!-- <Choose>
+    <When Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">
+      <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" VersionOverride="8.0.15"/>
+      </ItemGroup>
+    </When>
+    <When Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">
+      <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Condition=" '$(TargetFramework)' != 'net6.0' "/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Condition=" '$(TargetFramework)' == 'net6.0' " VersionOverride="6.0.23"/>
+      </ItemGroup>
+    </Otherwise>
+  </Choose> -->
 
   <ItemGroup>
     <ProjectReference Include="..\Ardalis.Result.SampleWeb\Ardalis.Result.SampleWeb.csproj" />

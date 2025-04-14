@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Condition=" '$(TargetFramework)' != 'net6.0' "/>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net9.0'))"  VersionOverride="9.0.4"/>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Condition=" '$(TargetFramework)' == 'net6.0' " VersionOverride="6.0.23"/>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Condition=" '$(TargetFramework)' != 'net6.0' "/>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Microsoft.TestPlatform.ObjectModel" />
     <PackageReference Include="xunit" />
