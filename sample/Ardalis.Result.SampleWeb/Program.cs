@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Globalization;
+using System.Net;
 using Ardalis.Result;
 using Ardalis.Result.AspNetCore;
 using Ardalis.Result.Sample.Core.Services;
@@ -9,14 +12,14 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var webAssembly = typeof(Program).Assembly;
-builder.Services.AddMediatR(webAssembly);
+builder.Services.AddMediatR((config) =>
+{
+    config.RegisterServicesFromAssembly(webAssembly);
+});
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
 builder.Services.AddControllers(mvcOptions => mvcOptions
